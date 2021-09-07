@@ -9,6 +9,6 @@ The following tools have to be installed and setup:
 
 ## Scripts and usage
 
-| Script                           | cURL command                            | Description                                                           |
-| -------------------------------- | --------------------------------------- | --------------------------------------------------------------------- |
-| [`launch-pma.sh`](launch-pma.sh) | `curl -sL https://pma.humiu.io \| bash` | Launch a PhpMyAdmin container and connect it to a Wordpress database. |
+| Script                           | cURL command                    | Description                                                           |
+| -------------------------------- | ------------------------------- | --------------------------------------------------------------------- |
+| [`launch-pma.sh`](launch-pma.sh) | `curl -sL pma.humiu.io \| bash` | Launch a PhpMyAdmin container and connect it to a Wordpress database. |

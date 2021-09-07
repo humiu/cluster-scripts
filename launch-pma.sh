@@ -151,7 +151,7 @@ if [ -z "$PORT" ]; then
     ((DEFAULT_LOCAL_PORT++))
   done
 
-  read -p "Local port to which PMA is getting forwarded to: [default=${bold_start}${DEFAULT_LOCAL_PORT}${bold_end}] " LOCAL_PORT
+  read -p "Local port to which PMA is getting forwarded to: [default=${bold_start}${DEFAULT_LOCAL_PORT}${bold_end}] " LOCAL_PORT < /dev/tty
   [ -z "$LOCAL_PORT" ] && LOCAL_PORT="$DEFAULT_LOCAL_PORT"
   while $(nc -z 127.0.0.1 $LOCAL_PORT &>/dev/null); do
     read -p "Local port $LOCAL_PORT is already in use. Please enter another local port: [default=${bold_start}${DEFAULT_LOCAL_PORT}${bold_end}] " LOCAL_PORT
