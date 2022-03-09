@@ -159,10 +159,13 @@ if [ -z "$PORT" ]; then
   done
 fi
 
+SEARCH="wordpress"
+REPLACE="mariadb"
+DATABASE_NAME="${DEPLOYMENT%$SEARCH*}$REPLACE${DEPLOYMENT##*$SEARCH}"
 CLUSTER_DOMAIN="$(
   kubectl --context="$CONTEXT" get configmap --namespace="kube-system" cluster-dns -o jsonpath="{.data.clusterDomain}"
 )"
-DB_HOST="${DEPLOYMENT}-mariadb.${NAMESPACE}.svc.${CLUSTER_DOMAIN}"
+DB_HOST="${DATABASE_NAME}.${NAMESPACE}.svc.${CLUSTER_DOMAIN}"
 DB_PORT="3306"
 DB_NAME="bitnami_wordpress"
 DB_USER="bn_wordpress"
@@ -175,11 +178,11 @@ CONTAINER_PORT=80
 # )"
 
 DB_PASSWORD="$(
-  kubectl --context="$CONTEXT" get secret --namespace="$NAMESPACE" "${DEPLOYMENT}-mariadb" -o jsonpath="{.data.mariadb-password}" | base64 --decode
+  kubectl --context="$CONTEXT" get secret --namespace="$NAMESPACE" "$DATABASE_NAME" -o jsonpath="{.data.mariadb-password}" | base64 --decode
 )"
 
 # DB_ROOT_PASSWORD="$(
-#   kubectl --context="$CONTEXT" get secret --namespace="$NAMESPACE" "${DEPLOYMENT}-mariadb" -o jsonpath="{.data.mariadb-root-password}" | base64 --decode
+#   kubectl --context="$CONTEXT" get secret --namespace="$NAMESPACE" "$DATABASE_NAME" -o jsonpath="{.data.mariadb-root-password}" | base64 --decode
 # )"
 
 echo ""
